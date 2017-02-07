@@ -66,21 +66,6 @@ public class Main {
                     UserC = new UserConnected(pseudoConnected,anniversaryConnected,passwordConnected,sexeConnected);
 //                    System.out.println(UserC);                    
                     break;
-            
-                case 3:
-                    System.out.println("__NEW EVENT__");
-                    System.out.println("Nom: ");
-                    String nom= new Scanner(System.in).nextLine();
-                    System.out.println("Date de la Partie");
-                    String Date= new Scanner(System.in).nextLine();
-                    System.out.println("Heure de la partie");
-                    String heure= new Scanner(System.in).nextLine();
-                    connection.addEvent(nom,Date,heure);
-                    break;
-                case 4:
-                    System.out.println("___EVENT DISPO___");
-                    connection.getEvents();
-                    break;
                     
             }
         } while( choix !=2 && choix != 0 );
@@ -103,8 +88,17 @@ public class Main {
                     connection.addEvent(nom,Date,heure);
                     break;
                 case 2:
+                   listEvent g = new listEvent();
                     System.out.println("___EVENT DISPO___");
-                    connection.getEvents();
+                    ResultSet TabEvent = connection.getEvents();
+                    while(TabEvent.next()){
+                        String nom_event = TabEvent.getString("nom_event");
+                        String date = TabEvent.getString("date_event");
+                        String jeu = TabEvent.getString("jeu_event");
+                        String heure_event = TabEvent.getString("heure_event");
+                    g.add(new Event( nom_event, date, jeu, heure_event));
+                    }
+                    System.out.println(g);
                     break;
             }
         }while(choix!=0);
